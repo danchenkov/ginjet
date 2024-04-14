@@ -1,2 +1,4 @@
-server.pem
-server.key
+.DS_Store
+/node_modules
+/ssl/
+/log/

@@ -5,11 +5,15 @@ import (
 )
 
 func main() {
-	router := gin.Default()
-	router.SetTrustedProxies([]string{"127.0.0.1", "ginjet.test"})
+	httpsRouter := gin.Default()
+	httpsRouter.SetTrustedProxies([]string{"127.0.0.1", "ginjet.test"})
+	httpsRouter.GET("/", homeIndex)
 
-	router.GET("/", homeIndex)
+	httpRouter := gin.Default()
+	httpRouter.GET("/*p", func(c *gin.Context) {
+		c.Redirect(302, "https://ginjet.test/"+c.Param("p"))
+	})
 
-	// router.Run("ginjet.test:8003")
-	router.RunTLS("ginjet.test:443", "./ssl/ginjet.crt", "./ssl/ginjet.key")
+	go httpsRouter.RunTLS("ginjet.test:443", "./ssl/ginjet.crt", "./ssl/ginjet.key")
+	httpRouter.Run("ginjet.test:80")
 }

@@ -5,13 +5,6 @@
 {{end}}
 
 
-{{block ul()}}
-  <ul>
-    {{yield content}}
-  </ul>
-{{end}}
-
-
 {{block documentBody()}}
   <h1>List of users</h1>
   {{if isset(showingAllDone) && showingAllDone}}
@@ -20,7 +13,7 @@
     <p><a href="/all-done">Show only TODOs that are done</a></p>
   {{end}}
 
-  {{yield ul() content}}
+  <ul>
     {{range id, value := .}}
       <li {{if value.Done}} style="color:red;text-decoration: line-through;"{{end}}>
         <a href="/todo?id={{id}}">{{value.Text}}</a>
@@ -28,5 +21,5 @@
         {{yield button(href="/delete/?id="+id, label="DL")}}
       </li>
     {{end}}
-  {{end}}
+  </ul>
 {{end}}

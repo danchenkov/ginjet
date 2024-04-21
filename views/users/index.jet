@@ -5,7 +5,7 @@
 {{end}}
 
 
-{{block documentBody()}}
+{{ block documentBody()}}
   <h1>List of users</h1>
   {{if isset(showingAllDone) && showingAllDone}}
     <p>Showing only TODOs that are done</p>
